@@ -13,16 +13,17 @@ private:
     float quantidade;          
     std::string dataHora;     
     bool confirmada;           
+    
 public:
-    //Construtor
+    // Construtor
     Retirada(int id, Usuario* usuario, Reagente* reagente, float quantidade);
     
-    //Metodos 
+    // Métodos 
     std::string confirmarRetirada();   
     std::string cancelarRetirada();     
     std::string getInfo();             
     
-    //Getters
+    // Getters
     bool estaConfirmada() const { return confirmada; }     
     int getId() const { return id; }                      
     Usuario* getUsuario() const { return usuario; }        
@@ -30,6 +31,7 @@ public:
     float getQuantidade() const { return quantidade; }     
     std::string getDataHora() const { return dataHora; }  
     
-    //representação em string
+    // Representação em string
     std::string toString() const;     
 };
+#endif

@@ -1,4 +1,3 @@
-
 #include "Retirada.h"
 #include <ctime>
 #include <sstream>
@@ -15,10 +14,9 @@ Retirada::Retirada(int id, Usuario* usuario, Reagente* reagente, float quantidad
     dataHora = ss.str();
 }
 
-    //verifica quantidade a ser retirada
 std::string Retirada::confirmarRetirada() {
     if (quantidade <= 0) {
-        return "Quantidade tem ser maior que zero";
+        return "Quantidade tem que ser maior que zero";
     }
     
     if (quantidade > reagente->getQuantidade()) {
@@ -29,7 +27,7 @@ std::string Retirada::confirmarRetirada() {
     reagente->setQuantidade(reagente->getQuantidade() - quantidade);
     confirmada = true;
     
-    // Verifica nivel critico
+    // Verifica nível crítico
     if (reagente->getQuantidade() <= reagente->getQuantidadeCritica()) {
         return "Retirada realizada! ALERTA: quantidade critica em estoque (" + 
                std::to_string(reagente->getQuantidade()) + ")";
@@ -38,7 +36,6 @@ std::string Retirada::confirmarRetirada() {
     return "Retirada realizada";
 }
 
-    //caso a retirada seja cancelada
 std::string Retirada::cancelarRetirada() {
     if (confirmada) {
         reagente->setQuantidade(reagente->getQuantidade() + quantidade);
@@ -48,7 +45,6 @@ std::string Retirada::cancelarRetirada() {
     return "Retirada cancelada";
 }
 
-    //informacoes da retirada
 std::string Retirada::getInfo() {
     std::stringstream info;
     info << "ID: " << id << "\n"
@@ -57,5 +53,9 @@ std::string Retirada::getInfo() {
          << "Quantidade: " << quantidade << " " << reagente->getUnidadeMedida() << "\n"
          << "Data/Hora: " << dataHora << "\n"
          << "Status: " << (confirmada ? "Confirmada" : "Pendente");
-    return info.str(); //retorna o conteudo como string
+    return info.str();
+}
+
+std::string Retirada::toString() const {
+    return "Retirada " + std::to_string(id) + ": " + usuario->getNome() + " - " + reagente->getNome();
 }
